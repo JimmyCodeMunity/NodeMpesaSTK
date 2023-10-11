@@ -10,8 +10,8 @@ const cors = require("cors");
 
 const port = 5000;
 const hostname = "localhost";
-const phoneNumber = 254112163919;
-const Amount = 20;
+//const phoneNumber = 254112163919;
+//const Amount = 20;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors());
@@ -62,6 +62,7 @@ app.get("/access_token", (req, res) => {
 app.get("/stkpush", (req, res) => {
   getAccessToken()
     .then((accessToken) => {
+      const {phoneNumber,Amount} = req.body;
       const url =
         "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
       const auth = "Bearer " + accessToken;
