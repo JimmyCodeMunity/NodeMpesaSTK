@@ -9,8 +9,8 @@ const cors = require("cors");
 
 
 const port = 5000;
-const hostname = "localhost";
-const phoneNumber = 254112163919;
+//const hostname = "localhost";
+//const phoneNumber = 254112163919;
 const Amount = 20;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -60,6 +60,7 @@ app.get("/access_token", (req, res) => {
 
 //MPESA STK PUSH ROUTE
 app.get("/stkpush", (req, res) => {
+  const { phoneNumber, amount } = req.body;
   getAccessToken()
     .then((accessToken) => {
       const url =
