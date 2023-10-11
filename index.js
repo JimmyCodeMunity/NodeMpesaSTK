@@ -58,53 +58,51 @@ app.get("/access_token", (req, res) => {
     .catch(console.log);
 });
 
-//MPESA STK PUSH ROUTE
-app.get("/stkpush", (req, res) => {
-  const { phoneNumber, Amount } = req.body;
-  getAccessToken()
-    .then((accessToken) => {
-      const url =
-        "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
-      const auth = "Bearer " + accessToken;
-      const timestamp = moment().format("YYYYMMDDHHmmss");
-      const password = new Buffer.from(
-        "174379" +
-          "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" +
-          timestamp
-      ).toString("base64");
+// MPESA STK PUSH ROUTE
+app.post("/stkpush", async (req, res) => {
+  try {
+    const { phoneNumber, amount } = req.body;
 
-      axios
-        .post(
-          url,
-          {
-            BusinessShortCode: "174379",
-            Password: password,
-            Timestamp: timestamp,
-            TransactionType: "CustomerPayBillOnline",
-            Amount: Amount,
-            PartyA: phoneNumber,
-            PartyB: "174379",
-            PhoneNumber: phoneNumber,
-            CallBackURL: "https://morning-basin-87523.herokuapp.com/callback_url.php",
-            AccountReference: "UMESKIA PAY",
-            TransactionDesc: "Mpesa Daraja API stk push test",
-          },
-          {
-            headers: {
-              Authorization: auth,
-            },
-          }
-        )
-        .then((response) => {
-          res.send("😀 Request is successful done ✔✔. Please enter mpesa pin to complete the transaction");
-        })
-        .catch((error) => {
-          console.log(error);
-          res.status(500).send("❌ Request failed");
-        });
-    })
-    .catch(console.log);
+    const accessToken = await getAccessToken();
+
+    const url = "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
+    const auth = "Bearer " + accessToken;
+    const timestamp = moment().format("YYYYMMDDHHmmss");
+    const password = new Buffer.from(
+      "174379" +
+        "bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919" +
+        timestamp
+    ).toString("base64");
+
+    const stkPushResponse = await axios.post(
+      url,
+      {
+        BusinessShortCode: "174379",
+        Password: password,
+        Timestamp: timestamp,
+        TransactionType: "CustomerPayBillOnline",
+        Amount: amount,
+        PartyA: phoneNumber,
+        PartyB: "174379",
+        PhoneNumber: phoneNumber,
+        CallBackURL: "https://morning-basin-87523.herokuapp.com/callback_url.php",
+        AccountReference: "UMESKIA PAY",
+        TransactionDesc: "Mpesa Daraja API stk push test",
+      },
+      {
+        headers: {
+          Authorization: auth,
+        },
+      }
+    );
+
+    res.send("😀 Request is successfully done ✔✔. Please enter mpesa pin to complete the transaction");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send("❌ Request failed");
+  }
 });
+
 
 // REGISTER URL FOR C2B
 app.get("/registerurl", (req, resp) => {
