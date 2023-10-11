@@ -60,7 +60,7 @@ app.get("/access_token", (req, res) => {
 
 //MPESA STK PUSH ROUTE
 app.get("/stkpush", (req, res) => {
-  const { phoneNumber, amount } = req.body;
+  const { phoneNumber, Amount } = req.body;
   getAccessToken()
     .then((accessToken) => {
       const url =
