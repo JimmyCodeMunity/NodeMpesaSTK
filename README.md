@@ -42,19 +42,18 @@ How to contribute
 
 How to contact me
 
-1. Email: alvo967@gmail.com
+1. Email: dev.jimin02@gmail.com
 
-3. Facebook: Alvin Kiveu
 
-4. Instagram: Alvin_Kiveu
+4. Instagram: I_amjay02
 
-5. LinkedIn: Alvin Kiveu
+5. LinkedIn: Jimmy Wafula
 
-6. WhatsApp: +254 768 168 060
+6. WhatsApp: +254 114068776
 
-8. Phone: +254 768 168 060
+8. Phone: +254 111163919
 
-9. Website: https://umeskiasoftwares.com
+9. Website: https://solve.tangaraschools.org
 
 
 Support us with the one of following ways
