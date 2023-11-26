@@ -100,7 +100,7 @@ app.get("/stkpush", (req, res) => {
         })
         .catch((error) => {
           console.log(error);
-          res.status(500).send("❌ Request failed",phoneNumber);
+          res.status(500).send("❌ Request failed");
         });
     })
     .catch(console.log);
