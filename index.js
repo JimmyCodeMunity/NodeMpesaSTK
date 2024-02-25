@@ -62,8 +62,8 @@ app.get("/access_token", (req, res) => {
 app.get("/stkpush", (req, res) => {
   getAccessToken()
     .then((accessToken) => {
-      // const {phoneNumber,Amount} = req.body;
-      const phoneNumber = 254791072861;
+      const {phoneNumber,Amount} = req.body;
+      // const phoneNumber = 254791072861;
       // const phoneNumber = 254797143440;
       // const phoneNumber = 254112163919;
       const Amount = 30;
