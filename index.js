@@ -44,7 +44,7 @@ async function getAccessToken() {
 }
 
 app.get("/", (req, res) => {
-  res.send("Welcome to Solve Payment Menthod(Mpesa)");
+  res.send("Welcome to Amelia Payment Menthod(Mpesa)");
   var timeStamp = moment().format("YYYYMMDDHHmmss");
   console.log(timeStamp);
 });
@@ -62,7 +62,11 @@ app.get("/access_token", (req, res) => {
 app.get("/stkpush", (req, res) => {
   getAccessToken()
     .then((accessToken) => {
-      const {phoneNumber,Amount} = req.body;
+      // const {phoneNumber,Amount} = req.body;
+      const phoneNumber = 254791072861;
+      // const phoneNumber = 254797143440;
+      // const phoneNumber = 254112163919;
+      const Amount = 30;
       const url =
         "https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest";
       const auth = "Bearer " + accessToken;
@@ -86,7 +90,7 @@ app.get("/stkpush", (req, res) => {
             PartyB: "174379",
             PhoneNumber: phoneNumber,
             CallBackURL: "https://morning-basin-87523.herokuapp.com/callback_url.php",
-            AccountReference: "UMESKIA PAY",
+            AccountReference: "CodeFinity",
             TransactionDesc: "Mpesa Daraja API stk push test",
           },
           {
