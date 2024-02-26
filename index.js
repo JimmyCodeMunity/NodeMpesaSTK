@@ -109,35 +109,68 @@ app.get("/stkpush", (req, res) => {
 });
 
 // REGISTER URL FOR C2B
-app.get("/registerurl", (req, resp) => {
+// app.get("/registerurl", (req, resp) => {
+//   getAccessToken()
+//     .then((accessToken) => {
+//       const url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
+//       const auth = "Bearer " + accessToken;
+//       axios
+//         .post(
+//           url,
+//           {
+//             ShortCode: "174379",
+//             ResponseType: "Complete",
+//             ConfirmationURL: "http://example.com/confirmation",
+//             ValidationURL: "http://example.com/validation",
+//           },
+//           {
+//             headers: {
+//               Authorization: auth,
+//             },
+//           }
+//         )
+//         .then((response) => {
+//           resp.status(200).json(response.data);
+//         })
+//         .catch((error) => {
+//           console.log(error);
+//           resp.status(500).send("❌ Request failed");
+//         });
+//     })
+//     .catch(console.log);
+// });
+
+
+app.get('/registerurl', (req,resp)=>{
   getAccessToken()
-    .then((accessToken) => {
-      const url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
-      const auth = "Bearer " + accessToken;
-      axios
-        .post(
-          url,
-          {
-            ShortCode: "174379",
-            ResponseType: "Complete",
-            ConfirmationURL: "http://example.com/confirmation",
-            ValidationURL: "http://example.com/validation",
-          },
-          {
-            headers: {
-              Authorization: auth,
-            },
-          }
-        )
-        .then((response) => {
-          resp.status(200).json(response.data);
-        })
-        .catch((error) => {
+  .then((accessToken)=>{
+    let url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl";
+    let auth = "Bearer " + accessToken;
+
+    request(
+      {
+        url:url,
+        method:"POST",
+        headers:{
+          Authorization:auth
+        },
+        json:{
+          ShortCode:"174379",
+          ResponseType:"Complete",
+          ConfirmationURL:"http://example.com/confirmation",
+          ValidationURL:"http://example.com/validation"
+        },
+      },
+
+      function(error,response,body){
+        if(error){
           console.log(error);
-          resp.status(500).send("❌ Request failed");
-        });
-    })
-    .catch(console.log);
+        }
+        resp.status(200).json(body);
+      }
+    );
+  })
+  .catch(console.log);
 });
 
 app.get("/confirmation", (req, res) => {
