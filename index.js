@@ -88,7 +88,7 @@ app.get("/stkpush", (req, res) => {
             PartyB: "174379",
             PhoneNumber: phoneNumber,
             CallBackURL: "https://morning-basin-87523.herokuapp.com/callback_url.php",
-            AccountReference: "UMESKIA PAY",
+            AccountReference: "Solve Geeks",
             TransactionDesc: "Mpesa Daraja API stk push test",
           },
           {
